@@ -8,8 +8,8 @@ import argparse
 
 
 class NMT_easy:
-    def __init__(self, df: pd.DataFrame, language: str, outpath: str):
-        self.nmt_model = EasyNMT('opus-mt')
+    def __init__(self, df: pd.DataFrame, language: str, outpath: str, model_name: str = 'opus-mt'):
+        self.nmt_model = EasyNMT(model_name)
         self.lemmatization_model = spacy.load(language)
         self.language = language
         self.df = df
