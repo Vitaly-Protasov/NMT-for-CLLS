@@ -1,4 +1,4 @@
-# NMT-for-CLLS
+# NMT-for-CLLS [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1alF33i96d-AEeYOfwfN0Ei-HTWEJ_1f9?usp=sharing)
 Application of NMT+Word alignment models for cross-lingual lexical substitution task
 
 
