@@ -5,6 +5,7 @@ import transformers
 from typing import List, Tuple
 import torch
 import itertools
+import pandas as pd
 
 
 class Alignments:
