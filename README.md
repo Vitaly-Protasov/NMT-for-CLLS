@@ -13,7 +13,6 @@ bash init.sh
 * For example
 ```python3
 from nmt import NMT_easy
-import torch
 
 
 model_name = 'opus-mt' # see https://github.com/UKPLab/EasyNMT
