@@ -1,0 +1,25 @@
+import subprocess
+
+
+def substitute_nonunicode_letters(nonunicode_word: str):
+    substitution_word = nonunicode_word[:]
+    substitution_letters_pairs = {
+        'ñ': 'n', 'ó': 'o', 'í': 'i', 'é': 'e', 'á': 'a', 'ú': 'u', 'ï': 'i', 'ṅ': 'n', 'ā': 'a',
+        'а́': 'а', 'ы́': 'ы', 'у́': 'y', 'и́': 'и', 'ю́': 'ю', 'е́': 'е', 'о́': 'о', 
+    }
+    for i in substitution_letters_pairs:
+        if i in substitution_letters_pairs:
+            substitution_word = substitution_word.replace(i, substitution_letters_pairs[i])
+
+    return substitution_word
+
+
+def print_results_semeval2010(best_cands_path: str, gold_filepath: str, path_to_score_pl: str) -> None: 
+    command_list = ['perl', path_to_score_pl, best_cands_path, gold_filepath]
+
+    result = subprocess.run(command_list, 
+                            stderr=subprocess.PIPE,
+                            stdout=subprocess.PIPE, encoding='utf-8')
+    output = result.stdout.split('\n')
+    for i in output:
+        print(i)
