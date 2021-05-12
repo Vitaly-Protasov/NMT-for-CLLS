@@ -3,7 +3,6 @@ import pandas as pd
 from copy import deepcopy
 from tqdm import tqdm
 import spacy
-from typing import List
 import os
 import argparse
 

@@ -1,7 +1,7 @@
 import subprocess
 from google_trans_new import google_translator
 from tqdm import tqdm
-
+from typing import List
 
 def substitute_nonunicode_letters(nonunicode_word: str):
     substitution_word = nonunicode_word[:]
