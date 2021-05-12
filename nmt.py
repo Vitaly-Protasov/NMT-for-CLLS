@@ -8,7 +8,7 @@ import argparse
 
 
 class NMT_easy:
-    def __init__(self, model_name: str = 'opus-mt', device: str = 'cpu'):
+    def __init__(self, model_name: str = 'opus-mt'):
         self.nmt_model = EasyNMT(model_name)
     
     def make_nmt(self, df: pd.DataFrame, language: str, outpath: str) -> None:
