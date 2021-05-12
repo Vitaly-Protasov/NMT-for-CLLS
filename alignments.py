@@ -9,17 +9,19 @@ import pandas as pd
 
 
 class Alignments:
-    def __init__(self, df: pd.DataFrame):
+    def __init__(self):
         BERT_NAME: str = "bert-base-multilingual-cased"
-        self.new_df = df
         self.model1 = WordAlignment(model_name=BERT_NAME, tokenizer_name=BERT_NAME, device='cpu', fp16=False)
         self.model2 = transformers.BertModel.from_pretrained(BERT_NAME)
         self.tokenizer2 = transformers.BertTokenizer.from_pretrained(BERT_NAME)
     
-    def model_1(self) -> Tuple[List[str], List[str]]:
+    def _clear_word(self, word: str) -> str:
+        return re.sub(r'[^\w]', '', word.lower().strip())
+    
+    def model_1(self, df: pd.DataFrame) -> Tuple[List[str], List[str]]:
         positions = []
         spanish_tws = []
-        for i, line in tqdm(self.new_df.iterrows()):
+        for i, line in tqdm(df.iterrows()):
             if hasattr(line, 'context') and hasattr(line, 'translations') and hasattr(line, 'target_word'):
                 sent1 = line.context
                 sent2 = line.translations
@@ -28,8 +30,8 @@ class Alignments:
                 _, decoded = self.model1.get_alignment(sent1.split(), sent2.split(), calculate_decode=True)
 
                 for sentence1_w, sentence2_w in decoded:
-                    sentence1_w = re.sub(r'[^\w]', '', sentence1_w.lower().strip())
-                    sentence2_w = re.sub(r'[^\w]', '', sentence2_w.lower().strip())
+                    sentence1_w = self._clear_word(sentence1_w)
+                    sentence2_w = self._clear_word(sentence2_w)
                     if sentence1_w == target_w:
                         start = sent2.find(sentence2_w)
                         end = start + len(sentence2_w)
@@ -81,10 +83,10 @@ class Alignments:
         
         return sent_src, sent_tgt
 
-    def model_2(self) -> Tuple[List[str], List[str]]:
+    def model_2(self, df: pd.DataFrame) -> Tuple[List[str], List[str]]:
         positions = []
         spanish_tws = []
-        for i, line in tqdm(self.new_df.iterrows()):
+        for i, line in tqdm(df.iterrows()):
             sent1 = line.context
             sent2 = line.translations
             target_w = line.target_word
@@ -92,8 +94,8 @@ class Alignments:
             sent1_align, sent2_align = self._align_each_pair(sent1, sent2)
 
             for (sentence1_w, sentence2_w) in zip(sent1_align, sent2_align):
-                sentence1_w = re.sub(r'[^\w]', '', sentence1_w.lower().strip())
-                sentence2_w = re.sub(r'[^\w]', '', sentence2_w.lower().strip())
+                sentence1_w = self._clear_word(sentence1_w)
+                sentence2_w = self._clear_word(sentence2_w)
                 if sentence1_w == target_w:
                     start = sent2.find(sentence2_w)
                     end = start + len(sentence2_w)

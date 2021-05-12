@@ -8,15 +8,14 @@ import argparse
 
 
 class NMT_easy:
-    def __init__(self, df: pd.DataFrame, language: str, outpath: str, model_name: str = 'opus-mt'):
+    def __init__(self, language: str, outpath: str, model_name: str = 'opus-mt'):
         self.nmt_model = EasyNMT(model_name)
         self.lemmatization_model = spacy.load(language)
         self.language = language
-        self.df = df
         self.outpath = outpath
     
-    def make_nmt(self) -> None:
-        new_df = deepcopy(self.df)
+    def make_nmt(self, df: pd.DataFrame) -> None:
+        new_df = deepcopy(df)
         translated_sentences = []
         for i, line in tqdm(new_df.iterrows()):
             sent = line.context.strip()
@@ -30,11 +29,11 @@ class NMT_easy:
         print('Dataframe with translations was saved as', self.outpath)
 
 
-def main(outpath: str, dfpath: str, lang: str)->None:
+def main(outpath: str, dfpath: str, lang: str, model_name: str)->None:
     df = pd.read_csv(dfpath)
     assert all(c in df.columns() for c in ['context', 'target_word'])
 
-    results = NMT_easy().make_nmt(df, lang, outpath)
+    results = NMT_easy(lang, outpath, model_name).make_nmt(df)
 
 
 if __name__ == '__main__':
@@ -42,5 +41,6 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=str, required=False, default='after_nmt.csv')
     parser.add_argument('--df_path', type=str, required=True)
     parser.add_argument('--language', type=str, required=True)
+    parser.add_argument('--model_name', type=str, required=False, default='opus-mt')
     args = parser.parse_args()
-    main(args.output_path, args.df_path, args.language)
+    main(args.output_path, args.df_path, args.language, args.model_name)

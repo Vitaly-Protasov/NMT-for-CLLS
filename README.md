@@ -14,7 +14,11 @@ bash init.sh
 ```python3
 from nmt import NMT_easy
 
-nmt_model = NMT_easy(df, 'es', 'test.csv').make_nmt()
+language = 'es'
+outpath = 'test.csv'
+model_name = 'opus-mt' # see https://github.com/UKPLab/EasyNMT
+nmt_model = NMT_easy(language, outpath, model_name)
+nmt_semeval2010_2 = make_nmt(df)
 ```
 * Or
 ```
@@ -26,8 +30,8 @@ python3 nmt.py --df_path <path_to_df> --language <your_language>
 ```python3
 from alignments import Alignments
 
-alignment_models = Alignments(df)
-positions1, spanish_tws1 = alignment_models.model_1()
-positions2, spanish_tws2 = alignment_models.model_2()
+alignment_models = Alignments()
+positions1, spanish_tws1 = alignment_models.model_1(df)
+positions2, spanish_tws2 = alignment_models.model_2(df)
 ```
 
