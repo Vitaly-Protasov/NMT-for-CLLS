@@ -13,12 +13,16 @@ bash init.sh
 * For example
 ```python3
 from nmt import NMT_easy
+import torch
+
+
+model_name = 'opus-mt' # see https://github.com/UKPLab/EasyNMT
 
 language = 'es'
 outpath = 'test.csv'
-model_name = 'opus-mt' # see https://github.com/UKPLab/EasyNMT
-nmt_model = NMT_easy(language, outpath, model_name)
-nmt_semeval2010_2 = nmt_model.make_nmt(<your_df: pd.DataFrame>)
+
+nmt_model = NMT_easy(model_name, device)
+nmt_semeval2010_2 = nmt_model.make_nmt(<your_df: pd.DataFrame>, language, outpath)
 ```
 * Or
 ```
