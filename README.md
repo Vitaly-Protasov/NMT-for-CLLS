@@ -21,7 +21,7 @@ model_name = 'opus-mt' # see https://github.com/UKPLab/EasyNMT
 language = 'es'
 outpath = 'test.csv'
 
-nmt_model = NMT_easy(model_name, device)
+nmt_model = NMT_easy(model_name)
 nmt_semeval2010_2 = nmt_model.make_nmt(<your_df: pd.DataFrame>, language, outpath)
 ```
 * Or
