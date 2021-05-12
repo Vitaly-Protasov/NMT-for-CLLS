@@ -27,6 +27,6 @@ python3 nmt.py --df_path <path_to_df> --language <your_language>
 from alignments import Alignments
 
 align_1 = Alignments(df, 'es', 'test1.csv').model_1()
-align_1 = Alignments(df, 'es', 'test2.csv').model_2()
+align_2 = Alignments(df, 'es', 'test2.csv').model_2()
 ```
 
