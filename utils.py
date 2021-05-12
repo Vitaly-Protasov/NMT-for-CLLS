@@ -1,4 +1,6 @@
 import subprocess
+from google_trans_new import google_translator
+from tqdm import tqdm
 
 
 def substitute_nonunicode_letters(nonunicode_word: str):
@@ -23,3 +25,15 @@ def print_results_semeval2010(best_cands_path: str, gold_filepath: str, path_to_
     output = result.stdout.split('\n')
     for i in output:
         print(i)
+
+def get_google_translations(df: pd.DataFrame, language: str, outpath: str):
+    translator = google_translator()
+    translated_sentences: List[str] = []
+    for i, line in tqdm(df.iterrows()):
+        sent = line.context.strip()
+        target_w = line.target_word                                                    
+        translated_sent = translator.translate(sent, lang_tgt=language)
+        translated_sentences.append(translated_sent)
+    df['translations'] = translated_sentences
+    df.to_csv(outpath, index=None)
+    print('Dataframe with translations was saved as', outpath)

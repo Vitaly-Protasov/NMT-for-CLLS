@@ -3,7 +3,8 @@ torch-scatter==2.0.6
 torch==1.8.1
 transformers==4.4.2
 tokenizers>=0.5.2
-spacy
+spacy==2.2.4
+google_trans_new
 py_babelnet
 pathlib
 typing
