@@ -37,3 +37,14 @@ def get_google_translations(df: pd.DataFrame, language: str, outpath: str):
     df['translations'] = translated_sentences
     df.to_csv(outpath, index=None)
     print('Dataframe with translations was saved as', outpath)
+
+
+def from_csv_to_file_best(df: pd.DataFrame, outpath: str) -> None:
+    f_test_result = open(outpath, 'w+')
+    delimeter_best = ' :: '
+
+    for i, line in df.iterrows():
+        lemma_cand = substitute_nonunicode_letters(line.tw_translations)
+        string_to_write = line.tw_for_metrics + delimeter_best + str(lemma_cand) + '\n'
+        f_test_result.write(string_to_write)
+    f_test_result.close()
