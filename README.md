@@ -26,7 +26,7 @@ python3 nmt.py --df_path <path_to_df> --language <your_language>
 ```python3
 from alignments import Alignments
 
-align_1 = Alignments(df, 'es', 'test1.csv').model_1()
-align_1 = Alignments(df, 'es', 'test2.csv').model_2()
+positions1, spanish_tws1 = Alignments(df).model_1()
+positions2, spanish_tws2 = Alignments(df).model_2()
 ```
 
