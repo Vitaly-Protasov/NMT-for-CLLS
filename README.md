@@ -22,7 +22,7 @@ nmt_semeval2010_2 = nmt_model.make_nmt(df: pd.DataFrame)
 ```
 * Or
 ```
-python3 nmt.py --df_path <path_to_df> --language <your_language>
+python3 nmt.py --df_path <path_to_df> --language <your_language> --model_name <nmt_model_name>
 ```
 
 # Get alignments
