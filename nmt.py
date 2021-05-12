@@ -18,7 +18,7 @@ class NMT_easy:
         for i, line in tqdm(new_df.iterrows()):
             sent = line.context.strip()
             target_w = line.target_word                                                    
-            translated_sent = self.nmt_model.translate(sent, target_lang=self.language)
+            translated_sent = self.nmt_model.translate(sent, target_lang=language)
             lemmatized_sent = lemmatization_model(translated_sent)
             translated_sentences.append(lemmatized_sent)
         
